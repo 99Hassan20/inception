@@ -2,6 +2,23 @@ version: '3.8'
 
 services:
   nginx:
-    build: ./requirements/nginx
+    image: nginx
+    container_name: nginx
+    build:
+      context: requirements/nginx
+      dockerfile: Dockerfile
+    restart: always
     ports:
       - 443:443
+    
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    build: #./requirements/mariadb
+      context: requirements/mariadb
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - 3306:3306
+    # restart: always 
