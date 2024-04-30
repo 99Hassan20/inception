@@ -4,7 +4,8 @@ server {
     ssl_certificate /etc/nginx/hoigag.42.crt;
     ssl_certificate_key /etc/nginx/hoigag.42.key;
     ssl_protocols TLSv1.2 TLSv1.3;
-	root /var/www/html;
+	
+	root /var/www/html/wordpress;
 
 	# Add index.php to the list if you are using PHP
 	index index.php;
@@ -19,11 +20,11 @@ server {
 	# pass PHP scripts to FastCGI server
 	location ~ \.php$ {
 		include snippets/fastcgi-php.conf;
+		fastcgi_pass wordpress:9000;
 	
 		# With php-fpm (or other unix sockets):
 		# fastcgi_pass unix:/run/php/php7.4-fpm.sock;
 		# With php-cgi (or other tcp sockets):
-		fastcgi_pass wordpress:9000;
 	}
 
 	# deny access to .htaccess files, if Apache's document root

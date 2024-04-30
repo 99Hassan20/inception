@@ -12,6 +12,9 @@ services:
       - 443:443
     depends_on:
       - wordpress
+    # volumes:
+    #   - wordpress:/var/www/html/wordpress
+
   mariadb:
     image: mariadb
     container_name: mariadb
@@ -22,7 +25,9 @@ services:
       - .env
     ports:
       - 3306:3306
-
+    restart: always
+    volumes:
+      - mariadb:/var/lib/mysql
   wordpress:
     image: wordpress
     container_name: wordpress
@@ -35,4 +40,20 @@ services:
         - 9000:9000
     depends_on:
       - mariadb
-    # restart: always 
+    restart: always
+    # volumes:
+    #   - wordpress:/var/www/html/wordpress
+
+# volumes:
+#   wordpress:
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /home/hoigag/data/wordpress
+#     name: wordpress
+#   mariadb:
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /home/hoigag/data/mariadb
+#     name: mariadb
