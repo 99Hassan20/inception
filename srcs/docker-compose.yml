@@ -12,8 +12,8 @@ services:
       - 443:443
     depends_on:
       - wordpress
-    # volumes:
-    #   - wordpress:/var/www/html/wordpress
+    volumes:
+      - wordpress:/var/www/html/wordpress
 
   mariadb:
     image: mariadb
@@ -41,19 +41,19 @@ services:
     depends_on:
       - mariadb
     restart: always
-    # volumes:
-    #   - wordpress:/var/www/html/wordpress
+    volumes:
+      - wordpress:/var/www/html/wordpress
 
-# volumes:
-#   wordpress:
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: /home/hoigag/data/wordpress
-#     name: wordpress
-#   mariadb:
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: /home/hoigag/data/mariadb
-#     name: mariadb
+volumes:
+  wordpress:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/hoigag/data/wordpress
+    name: wordpress
+  mariadb:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/hoigag/data/mariadb
+    name: mariadb
