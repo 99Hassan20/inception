@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.9'
 
 services:
   nginx:
@@ -14,6 +14,8 @@ services:
       - wordpress
     volumes:
       - wordpress:/var/www/html/wordpress
+    networks:
+      - inception
 
   mariadb:
     image: mariadb
@@ -31,6 +33,8 @@ services:
     secrets:
       - db_root_password
       - db_user_password
+    networks:
+      - inception
 
   wordpress:
     image: wordpress
@@ -50,6 +54,13 @@ services:
     secrets:
       - wp_credentials
       - db_user_password
+    networks:
+      - inception
+
+networks:
+  inception:
+    name: inception
+    driver: bridge
 
 secrets:
   db_root_password:
