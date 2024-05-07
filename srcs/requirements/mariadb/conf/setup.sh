@@ -1,5 +1,8 @@
 #!/bin/bash
 
+DB_USER_PASSWORD=$(cat /run/secrets/db_user_password)
+DB_ROOT_PASSWORD=$(cat /run/secrets/db_root_password)
+
 echo "FLUSH PRIVILEGES;
      CREATE DATABASE IF NOT EXISTS $DB_NAME;
      CREATE USER IF NOT EXISTS '$DB_USER_NAME'@'%' IDENTIFIED BY '$DB_USER_PASSWORD';

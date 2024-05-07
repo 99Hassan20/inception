@@ -28,6 +28,10 @@ services:
     restart: always
     volumes:
       - mariadb:/var/lib/mysql
+    secrets:
+      - db_root_password
+      - db_user_password
+
   wordpress:
     image: wordpress
     container_name: wordpress
@@ -43,17 +47,28 @@ services:
     restart: always
     volumes:
       - wordpress:/var/www/html/wordpress
+    secrets:
+      - wp_credentials
+      - db_user_password
+
+secrets:
+  db_root_password:
+    file: ../secrets/db_root_password.txt
+  db_user_password:
+    file: ../secrets/db_password.txt
+  wp_credentials:
+    file: ../secrets/credentials.txt
 
 volumes:
   wordpress:
     driver_opts:
       type: none
       o: bind
-      device: /home/hoigag/data/wordpress
+      device: /Users/hassanoigag/1337/inception/data/wordpress
     name: wordpress
   mariadb:
     driver_opts:
       type: none
       o: bind
-      device: /home/hoigag/data/mariadb
+      device: /Users/hassanoigag/1337/inception/data/mariadb
     name: mariadb
