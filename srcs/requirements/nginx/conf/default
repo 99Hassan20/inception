@@ -1,19 +1,15 @@
 server {
-    listen 443 ssl ;
+    listen 443 ssl;
     listen [::]:443 ssl;
     ssl_certificate /etc/nginx/hoigag.42.crt;
     ssl_certificate_key /etc/nginx/hoigag.42.key;
-    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_protocols TLSv1.3;
 	
 	root /var/www/html/wordpress;
-	autoindex on;
-	# Add index.php to the list if you are using PHP
 	index index.php;
 
 	server_name hoigag.42.fr www.hoigag.42.fr;
 	location / {
-		# First attempt to serve request as file, then
-		# as directory, then fall back to displaying a 404.
 		try_files $uri $uri/ =404;
 	}
 
@@ -24,15 +20,5 @@ server {
 		include fastcgi_params;
 		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
 		fastcgi_param SCRIPT_NAME $fastcgi_script_name;
-		# With php-fpm (or other unix sockets):
-		# fastcgi_pass unix:/run/php/php7.4-fpm.sock;
-		# With php-cgi (or other tcp sockets):
 	}
-
-	# deny access to .htaccess files, if Apache's document root
-	# concurs with nginx's one
-	#
-	#location ~ /\.ht {
-	#	deny all;
-	#}
 }

@@ -10,7 +10,7 @@ WP_USER_PASSWORD=$(cat /run/secrets/wp_credentials | grep WP_USER_PASSWORD | cut
 
 cd /var/www/html/wordpress
 # check if wordpress is already installed``
-if [ -e wp-config.php ]; then
+if [ -e "/var/www/html/wordpress/wp-config.php" ]; then
     echo "WordPress is already installed"
 else
     wp core download --allow-root

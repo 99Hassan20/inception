@@ -1,17 +1,24 @@
+NAME=inception
+
+VOLUME="/home/hoigag/data"
 
 all:
-	mkdir -p /Users/hassanoigag/1337/inception/data/wordpress
-	mkdir -p /Users/hassanoigag/1337/inception/data/mariadb
-	docker-compose -f ./srcs/docker-compose.yml up --build -d
+	@echo "setting up the infrastructure"
+	@mkdir -p $(VOLUME)/wordpress
+	@mkdir -p $(VOLUME)/mariadb
+	@docker-compose -p $(NAME) -f ./srcs/docker-compose.yml up --build -d
 
 clean:
-	docker-compose -f ./srcs/docker-compose.yml down
-	docker volume rm -f $$(docker volume ls -q) 2> /dev/null
-	rm -rf /Users/hassanoigag/1337/inception/data/wordpress
-	rm -rf /Users/hassanoigag/1337/inception/data/mariadb
+	@echo "shutting down and deleting containers"
+	@docker-compose -p $(NAME) -f ./srcs/docker-compose.yml down
 
 fclean: clean
-	docker rmi -f $$(docker images -qa)
+	@echo "cleaning everything"
+	@docker volume rm -f $$(docker volume ls -q)
+	@docker rmi -f $$(docker images -qa)
+	@sudo rm -rf $(VOLUME)/wordpress
+	@sudo rm -rf $(VOLUME)/mariadb
 
-re: down all
+re: fclean all
 
+.PHONY: all clean fclean re

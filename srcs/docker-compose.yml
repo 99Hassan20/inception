@@ -1,4 +1,4 @@
-# version: '3.9'
+version: '3.8'
 
 services:
   nginx:
@@ -20,13 +20,11 @@ services:
   mariadb:
     image: mariadb
     container_name: mariadb
-    build: #./requirements/mariadb
+    build:
       context: requirements/mariadb
       dockerfile: Dockerfile
     env_file:
       - .env
-    ports:
-      - 3306:3306
     restart: always
     volumes:
       - mariadb:/var/lib/mysql
@@ -44,8 +42,6 @@ services:
       dockerfile: Dockerfile
     env_file:
         - .env
-    ports:
-        - 9000:9000
     depends_on:
       - mariadb
     restart: always
@@ -60,7 +56,6 @@ services:
 networks:
   inception:
     name: inception
-    driver: bridge
 
 secrets:
   db_root_password:
@@ -75,11 +70,11 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /Users/hassanoigag/1337/inception/data/wordpress
+      device: /home/hoigag/data/wordpress
     name: wordpress
   mariadb:
     driver_opts:
       type: none
       o: bind
-      device: /Users/hassanoigag/1337/inception/data/mariadb
+      device: /home/hoigag/data/mariadb
     name: mariadb
