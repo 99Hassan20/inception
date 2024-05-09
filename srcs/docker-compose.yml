@@ -67,14 +67,14 @@ secrets:
 
 volumes:
   wordpress:
+    name: wordpress
     driver_opts:
       type: none
       o: bind
       device: /home/hoigag/data/wordpress
-    name: wordpress
   mariadb:
+    name: mariadb
     driver_opts:
       type: none
       o: bind
       device: /home/hoigag/data/mariadb
-    name: mariadb
